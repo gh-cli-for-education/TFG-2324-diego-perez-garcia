@@ -2,8 +2,14 @@
 
 \usepackage[dvips]{graphicx}
 \usepackage[dvips]{epsfig}
+
+\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
+
+%\usepackage[latin1]{inputenc}
+%\usepackage[spanish]{babel}
+
 \usepackage{alltt}
 
 \usepackage[ruled,vlined,commentsnumbered,linesnumbered,inoutnumbered,titlenotnumbered,noend]{algorithm2e}
@@ -232,11 +238,18 @@ Licencia
 
 \begin{abstract} % TODO: Revisar ortografía
 Está muy arraigado en la informática el uso de GitHub como plataforma de enseñanza.
-Es así que esta promuebe las iniciativas de educación con GitHub Education. Dando paso a herramientas claves como GitHub Classroom con soporte para asignar tareas de manera fácil y sencilla. Por otra parte la plataforma ofrece una herramienta llamada GitHub CLI que permite interactuar con esta atraves de la línea de comandos.
+Es así que esta promueve las iniciativas de educación con GitHub Education. 
+Dando paso a herramientas claves como GitHub Classroom con soporte para asignar tareas de manera fácil
+y sencilla. Por otra parte la plataforma ofrece una herramienta llamada GitHub CLI que permite interactuar 
+con esta por medio de  de la línea de comandos.
 
-Este trabajo presenta un comando nuevo para la GitHub CLI denominado \verb|gh owner| que tiene como objetivo romper con un problema de experiencia de usuario que es tener que recordar los largos y varios OWNERS que pueda tener un usuario en su cuenta. Esto resuelve entonces una cantidad de comandos que requieren de pasar como argumento OWNER/REPO, por lo que declarar un OWNER por defecto y simplemente pasar REPO resulta en combinar este OWNER con el REPO para generar un argumento completo y más fácil de rellenar.
+Este trabajo presenta un comando nuevo para la GitHub CLI 
+denominado \verb|gh owner| que tiene como objetivo romper con un problema 
+de experiencia de usuario que es tener que recordar los largos y varios OWNERS 
+que pueda tener un usuario en su cuenta. Esto resuelve entonces una cantidad de comandos 
+que requieren de pasar como argumento OWNER/REPO, por lo que declarar un OWNER por defecto y simplemente pasar REPO resulta en combinar este OWNER con el REPO para generar un argumento completo y más fácil de rellenar.
 \begin{palabrasClave}
-github-cli, github-owners, graphql, rest, git, terminal, go
+github-cli, github-education, graphql, rest, git, go
 \end{palabrasClave}
 
 \end{abstract}

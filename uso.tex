@@ -51,10 +51,10 @@ Comando importante, utilizado para establecer la configuración en el fichero de
     \item \textbf{-i, -{}-identifier.} Expresión regular para identificar los identificadores de los alumnos, en el caso de la ULL utilizamos \verb|alu| seguido de 10 números del 0 al 9. que se corresponde con la expresión regular \verb|alu[0-9]\{10\}|
     \item \textbf{-t, -{}-team.} Expresión regular para poder extraer información del nombre de los equipos. Está pensada para que se utilice con agrupamientos con nombre (``named captured group``). Por ejemplo, la expresión regular:\\ \verb|(?<name>.*?).(?<id>.*?).(?<login>.*[^s*])|\\
     Aplicada sobre el siguiente nombre de equipo:\\
-    \verb|cristo-garcía-gonzález.alu0101204512.ggcristo|\\
+    \verb|cristo-garcia-gonzález.alu0101204512.ggcristo|\\
     Es capaz de generar automáticamente la siguiente información:
     \begin{itemize}
-        \item \textbf{name:} cristo-garcía-gonzález
+        \item \textbf{name:} cristo-garcia-gonzález
         \item \textbf{id:} alu0101204512
         \item \textbf{login:} ggcristo
     \end{itemize}
@@ -263,7 +263,7 @@ Un ejemplo de tal instrucción del profesor sobre el nombre del equipo podría s
 
 "El nombre del equipo debe estar formado por el nombre y apellidos del alumno separado por guiones, seguido del identificador de la universidad. No use tildes ni caracteres especiales".
 
-Por ejemplo para un. alumno dela ULL podría ser algo como \verb|cristo-garcía-gonzalez-alu0101204512|. 
+Por ejemplo para un. alumno dela ULL podría ser algo como \verb|cristo-garcia-gonzalez-alu0101204512|. 
 
 El comando viene gobernado por la expresión regular con paréntesis con nombre 
 especificada en la entrada \verb|teamR| del fichero de configuración:
@@ -273,7 +273,7 @@ especificada en la entrada \verb|teamR| del fichero de configuración:
 ➜  gh-edu-data git:(casiano) ✗ gh edu get -t
 (?<name>.+)[-_](?<id>.+)
 \end{verbatim}
-Esta expresión regular permite decidir que \verb|name| es la primera parte \verb|cristo-garcía-gonzalez| y que \verb|id| es \verb|alu0101204512|.
+Esta expresión regular permite decidir que \verb|name| es la primera parte \verb|cristo-garcia-gonzalez| y que \verb|id| es \verb|alu0101204512|.
 
 \verb|teams| es un comando que tiene el mismo objetivo que \verb|log|, pero se aprovecha de esta estrategia, para que la obtención y búsqueda de dicha información sea inmediata.
 
