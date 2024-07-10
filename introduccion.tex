@@ -1,0 +1,34 @@
+%\section{Motivación}
+\section{Introducción}
+%Repetir aquí el proyecto de TFG
+Durante muchos años, profesores de programación de todo el mundo han utilizado y siguen utilizando GitHub como plataforma para la enseñanza de asignaturas relacionadas con la programación, el trabajo en equipo y el desarrollo de proyectos. La propia empresa GitHub ha apoyado estas iniciativas dentro de un grupo de acciones que se inscriben bajo el término  GitHub Education. Ello incluye descuentos en plataformas y herramientas para profesores y alumnos, foros específicos de discusión, congresos, becas, y herramientas específicas. Entre estas últimas cabe señalar  GitHub Classroom, la cual da soporte al proceso de asignación de tareas.
+
+Hace solo dos años GitHub introdujo una herramienta denominada GitHub CLI (a veces referenciada como gh-cli o gh). Es una herramienta de código abierto para utilizar los servicios que provee GitHub, pero desde la línea de comandos.  Es posible ver, crear, clonar, y bifurcar repositorios; crear, cerrar, editar y ver incidencias, etc. Sin embargo el conjunto de funcionalidades  ofrecido es aún bastante menor que el disponible en la interfaz web.
+
+En agosto del año 2021 los desarrolladores de GitHub Cli añadieron un mecanismo denominado gh-cli extensions (denominado gh-extensions) que facilita que terceros puedan añadir nuevas funcionalidades a gh-cli mediante un repositorio GitHub.
+En el contexto específico de GitHub Education, las gh-extensions abren nuevas posibilidades para  proveer comandos que facilitan el flujo de trabajo diario de los profesores y alumnos y que pueden ser de uno de estos tipos:
+\begin{itemize}
+  \item Creación y manejo de las organizaciones GitHub asociadas a las asignaturas
+  \item Creación y manejo de asignaciones de tareas dentro de una asignatura
+  \item Obtención de información sobre las actividades de los alumnos
+  \item Facilitar la respuesta pronta a las dudas 
+  \item Facilitar la elaboración de propuestas de mejora a los trabajos realizados por los alumnos
+  \item Mejorar la eficiencia en los procesos de evaluación 
+\end{itemize}
+
+\section{Antecedentes y estado actual del tema}
+Uno de los primeros intentos en integrar GitHub al mundo educativo fue \href{https://github.com/education/teachers_pet}{“teachers\_pet”}, una herramienta de la línea de comandos que ayudaba al profesorado a impartir sus clases intentando emular una plataforma de aprendizaje. Cada clase era una organización de GitHub y los alumnos estaban repartidos en equipos en los que estaban solo ellos mismos, de esta manera los profesores podían gestionar todos los repositorios de la organización, dar plantillas con las que los alumnos podían empezar a trabajar, comprobar el progreso, etc.
+ Más tarde, GitHub respondería a la demanda con Github Classroom  un servicio web de uso más intuitivo que dejaría obsoleto a \verb|teacher's pet|, y que a día de hoy es la más utilizada.
+
+En lo referente al GitHub CLI ya existía con anterioridad, una herramienta antecesora similar que proveía funcionalidades similares, fue  llamada \verb|hub|, actualmente mantenida por Mislav Marohnić (empleado de GitHub, Inc.). Hub fue creado originalmente por Chris Wanstrath, que junto con Tom Preston, Scott Chacon y P.J. Hyett fundaron GitHub en 2008. al igual que GitHub CLI esta herramienta nos permite interactuar con Github desde la terminal, pero esta se podría considerar un producto personal y más centrado en los denominados \gls{power users}. El 20 de febrero de 2020 Github anuncia Github CLI, el sucesor de hub mantenido y en desarrollo por un equipo oficial de la compañía y más amigable de usar. El 20 de agosto de 2021 sale la versión 2.0 con el comando \verb|extension|\cite{gh-extension}, con la cual los usuarios podrán crear sus propias extensiones que nos permiten generar por nosotros mismos y con relativa facilidad servicios y herramientas que se integren bien con las implementaciones actuales usando  las \gls{API}s de GitHub \verb|REST API|\cite{github-rest-api} y GitHub GraphQL\cite{github-graphql}.
+
+Actualmente, existen cientos de extensiones dirigidas al desarrollador, pero son pocas las que están dedicadas a facilitar la gestión de las organizaciones, en especial aquellas dedicadas a la enseñanza. Este proyecto tiene como objetivo crear una extensión modular de GitHub CLI que complementa a GitHub classroom y que provee funcionalidades como:
+
+\begin{itemize}
+    \item Creación y asignación de tareas
+    \item Seguimiento del progreso de los miembros de la organización
+    \item Soporte a la gestión de incidencias
+    \item Facilitar la retroalimentación a los trabajos realizados por los alumnos
+    \item Interoperabilidad entre subcomandos para permitir comportamientos más complejos
+    \item Interfaz rápida y amigable
+\end{itemize}

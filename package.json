@@ -1,0 +1,29 @@
+{
+  "name": "tfg-2122-cristo-garcia-gonzalez-memoria",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run pdf; npm run glossary; npm run bibtex; npm run pdf",
+    "pdf": "pdflatex memtfg.tex",
+    "bibtex": "bibtex memtfg",
+    "glossary": "makeglossaries memtfg",
+    "save": "git ci -am \"Cristo TFG mem\"; git push -u origin main"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gh-cli-for-education/TFG-2122-Cristo-Garcia-Gonzalez.git"
+  },
+  "keywords": [
+    "github-education", 
+    "github-cli", 
+    "github-classroom", 
+    "graphql", "rest", "git", "terminal", "javascript", "typescript", "jq", "go"
+  ],
+  "author": "Casiano Rodriguez Leon <crguezl@ull.edu.es> (https://crguezl.github.io/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gh-cli-for-education/TFG-2122-Cristo-Garcia-Gonzalez/issues"
+  },
+  "homepage": "https://github.com/gh-cli-for-education/TFG-2122-Cristo-Garcia-Gonzalez#readme"
+}

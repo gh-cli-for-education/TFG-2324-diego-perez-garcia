@@ -1,0 +1,418 @@
+\documentclass[spanish,a4paper,12pt,oneside]{extreport}
+
+\usepackage[dvips]{graphicx}
+\usepackage[dvips]{epsfig}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{alltt}
+
+\usepackage[ruled,vlined,commentsnumbered,linesnumbered,inoutnumbered,titlenotnumbered,noend]{algorithm2e}
+\SetKwRepeat{Do}{do}{while}
+
+\usepackage{multirow}
+\usepackage{array} 
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{bigstrut}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{chngpage}
+\usepackage{float}
+\usepackage{comment}
+%\usepackage{enumitem,lipsum}
+\usepackage{graphicx}
+\usepackage{lscape}
+\usepackage{microtype}
+\usepackage{natbib}
+\usepackage{pdflscape}
+\usepackage{rotating}
+\usepackage{subcaption}
+\usepackage{ctable}
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage{gensymb}
+\usepackage{eurosym}
+\usepackage{xcolor}
+\usepackage{tabu}
+\usepackage[export]{adjustbox}[2011/08/13]
+\usepackage{lineno}
+\usepackage{epigraph}
+%\usepackage[sanitize=none]{glossaries}
+\usepackage[toc]{glossaries}
+
+%\\linenumbers
+%\setlength\linenumbersep{5pt}
+%\renewcommand\linenumberfont{\normalfont\tiny\sffamily\color{gray}}
+
+%\makenoidxglossaries
+\makeglossaries
+
+\input{glosary}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+\newenvironment{sourcecode}
+{\begin{list}{}{\setlength{\leftmargin}{1em}}\item\scriptsize\bfseries}
+{\end{list}}
+
+\newenvironment{littlesourcecode}
+{\begin{list}{}{\setlength{\leftmargin}{1em}}\item\tiny\bfseries}
+{\end{list}}
+
+\newenvironment{summary}
+{\par\noindent\begin{center}\textbf{Abstract}\end{center}\begin{itshape}\par\noindent}
+{\end{itshape}}
+
+\newenvironment{keywords}
+{\begin{list}{}{\setlength{\leftmargin}{1em}}\item[\hskip\labelsep \bfseries Keywords:]}
+{\end{list}}
+
+\newenvironment{palabrasClave}
+{\begin{list}{}{\setlength{\leftmargin}{1em}}\item[\hskip\labelsep \bfseries Palabras clave:]}
+{\end{list}}
+
+\usepackage{bera}% optional: just to have a nice mono-spaced font
+\usepackage{listings}
+\usepackage{xcolor}
+
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{background},
+    literate=
+     *{0}{{{\color{numb}0}}}{1}
+      {1}{{{\color{numb}1}}}{1}
+      {2}{{{\color{numb}2}}}{1}
+      {3}{{{\color{numb}3}}}{1}
+      {4}{{{\color{numb}4}}}{1}
+      {5}{{{\color{numb}5}}}{1}
+      {6}{{{\color{numb}6}}}{1}
+      {7}{{{\color{numb}7}}}{1}
+      {8}{{{\color{numb}8}}}{1}
+      {9}{{{\color{numb}9}}}{1}
+      {:}{{{\color{punct}{:}}}}{1}
+      {,}{{{\color{punct}{,}}}}{1}
+      {\{}{{{\color{delim}{\{}}}}{1}
+      {\}}{{{\color{delim}{\}}}}}{1}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1},
+}
+
+% Configuración de los colores de los enlaces
+\hypersetup{
+    colorlinks = true,
+    linkcolor = blue,
+    filecolor = magenta,      
+    urlcolor = cyan,
+}
+
+\begin{document}
+
+\renewcommand\listtablename{Índice de Tablas}    
+\renewcommand\listfigurename{Índice de Figuras}    
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% First Page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{empty}
+\thispagestyle{empty}
+
+
+\newcommand{\HRule}{\rule{\linewidth}{1mm}}
+\setlength{\parindent}{0mm}
+\setlength{\parskip}{0mm}
+
+\vspace*{\stretch{0.5}}
+
+\begin{center}
+\includegraphics[scale=0.8]{images/escuela-ingenieria-tecnologia-original}\\[10mm]
+{\Huge Trabajo de Fin de Grado}
+\end{center}
+
+\HRule
+\begin{flushright}
+    {\Huge Extending GitHub CLI with Default Owners} \\[2.5mm]
+    {\Large \textit Extendiendo GitHub CLI con Propietarios por Defecto} \\[5mm]
+    {\Large Diego Pérez García} \\[5mm]
+\end{flushright}
+\HRule
+
+\vspace*{\stretch{2}}
+\begin{center}
+  \Large La Laguna, \today
+\end{center}
+
+\setlength{\parindent}{5mm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Signature page (add the official stamp)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\thispagestyle{empty}
+
+D. {\bf Casiano Rodríguez León}, con N.I.F. 42.020.072-S  profesor Catedrático de Universidad adscrito al Departamento de Nombre del Departamento de la Universidad de La Laguna, como tutor
+
+
+\bigskip
+\bigskip
+{\bf C E R T I F I C A N}
+
+\bigskip
+\bigskip
+Que la presente memoria titulada:
+
+\bigskip
+''{\it Extending GitHub CLI with Default Owners}''
+
+\bigskip
+\bigskip
+\bigskip
+
+\noindent ha sido realizada bajo su dirección por D. {\bf Diego Pérez García},
+con N.I.F. 79081733M.
+
+\bigskip
+\bigskip
+
+Y para que así conste, en cumplimiento de la legislación vigente y a los efectos
+oportunos firman la presente en La Laguna a \today
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\thispagestyle{empty}
+
+%{ \flushright
+
+\begin{LARGE}
+Agradecimientos
+\end{LARGE}
+
+\hspace{3mm}
+
+\begin{large}
+A mis amigos ya graduados que me han brindado apoyo, consejo y ánimos a pesar de haberme tardado un año más que ellos. \\
+A mi mejor amiga por brindarme el mayor de los apoyos cuando tuve que repetir asignaturas. \\
+A su vez a mis compañeros por esta gran experiencia y esos recuerdos que me llevo de mi vida universitaria. \\
+A los profesores Francisco de Sande González, Marcos Colebrook-Santamaria, Iván Castilla Rodríguez y Albano José González Fernández por su gran labor como profesores demostrando cada año que tratan de llegar a los alumnos para transmitir sus conocimientos de la mejor manera. \\
+A mi familia que me ha permitido centrarme en los estudios que me han llevado a ser el programador que soy hoy. \\
+Y por último a mi tutor Casiano Rodríguez León por ofrecer esta oportunidad de proyecto y aprendizaje, a la vez de ser un profesor con paciencia y que me ha permitido sacar el mejor resultado. \\
+\end{large}
+
+%}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\thispagestyle{empty}
+
+\bigskip
+\begin{LARGE}
+Licencia
+\end{LARGE}
+
+\begin{center}
+\includegraphics[scale=1.8]{images/by_88x31}\\[5mm]
+\end{center}
+
+\begin{large}
+© Esta obra está bajo una licencia de Creative Commons Reconocimiento 4.0 Internacional.
+\end{large}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage 
+\thispagestyle{empty}
+
+\begin{abstract} % TODO: Revisar ortografía
+Está muy arraigado en la informática el uso de GitHub como plataforma de enseñanza.
+Es así que esta promuebe las iniciativas de educación con GitHub Education. Dando paso a herramientas claves como GitHub Classroom con soporte para asignar tareas de manera fácil y sencilla. Por otra parte la plataforma ofrece una herramienta llamada GitHub CLI que permite interactuar con esta atraves de la línea de comandos.
+
+Este trabajo presenta un comando nuevo para la GitHub CLI denominado \verb|gh owner| que tiene como objetivo romper con un problema de experiencia de usuario que es tener que recordar los largos y varios OWNERS que pueda tener un usuario en su cuenta. Esto resuelve entonces una cantidad de comandos que requieren de pasar como argumento OWNER/REPO, por lo que declarar un OWNER por defecto y simplemente pasar REPO resulta en combinar este OWNER con el REPO para generar un argumento completo y más fácil de rellenar.
+\begin{palabrasClave}
+github-cli, github-owners, graphql, rest, git, terminal, go
+\end{palabrasClave}
+
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage 
+\vspace*{200px}
+\thispagestyle{empty}
+
+\begin{summary} % TODO: Traducir
+  The use of GitHub as a platform for teaching is a consolidated fact, especially in the field of
+  computing.
+  The company itself supports these initiatives within a group of actions that are included
+  under the term GitHub Education and that includes not only discounts,
+  forums, congresses, scholarships, etc. but also specific tools for education such as GitHub Classroom,
+  which supports the task assignment process.
+  GitHub has recently introduced a developer-oriented tool called GitHub CLI.
+  that allows you to use GitHub web services from the command line and that
+  provides an architecture called gh-extensions
+  that enables third parties to add new functionality to GitHub CLI.
+  
+  This work presents a gh-extension named \verb|gh-edu|
+  that aims to be the basis for an ecosystem of extensions that
+  facilitates the daily workflow of teachers and students
+  in tasks such as: the creation and management of organizations associated with subjects,
+  creating and managing task assignments,
+  help in the discovery of cases of plagiarism,
+  obtain information about student activity,
+  facilitate prompt response to queries,
+  facilitate the elaboration of feedback to the student and
+  improve efficiency in evaluation processes.
+  It is our hope that this tool will be useful to educators who use GitHub and that
+  community contributions will appear in the future with extensions covering new aspects of teaching.
+\begin {keywords}
+github-cli, github-owners, graphql, rest, git, terminal, go
+\end {keywords}
+
+\end{summary}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+\thispagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{myheadings} %my head defined by markboth or markright
+% No funciona bien \markboth sin "twoside" en \documentclass, pero al
+% ponerlo se dan un montÃ³n de errores de underfull \vbox, con lo que no se
+% ha puesto.
+
+
+%%Aqui debería poner el nombre del proyecto pero, como es muy grande no cabe y se ve feo en el PDF
+\markboth{xxxxx}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Numeracion en romanos
+\renewcommand{\thepage}{\roman{page}}
+\setcounter{page}{1}
+\pagestyle{plain} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{\hypersetup{linkcolor=black}
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+
+\listoffigures
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+
+\listoftables
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\thispagestyle{empty}
+
+%Numeracion a partir del capitulo I
+\renewcommand{\thepage}{\arabic{page}}
+\setcounter{page}{1}
+\pagestyle{plain}
+
+\chapter{\LARGE Introducción, Antecedentes y Estado del Arte}
+\label{chapter:intro}
+
+\input{introduccion.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+\thispagestyle{empty}
+
+\chapter{\LARGE Tecnologías}
+\label{chapter:dos}
+
+\input{tecnologias.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+\thispagestyle{empty}
+
+\chapter{\LARGE Modo de uso}
+\label{chapter:modo-de-uso}
+
+\input{uso.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+\thispagestyle{empty}
+
+\chapter{\LARGE Diseño}
+\label{chapter:tres}
+
+\input{disenyo.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+\thispagestyle{empty}
+
+\chapter{\LARGE Implementación}
+\label{chapter:cuatro}
+
+\input{implementacion.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+\thispagestyle{empty}
+
+\chapter{\LARGE Conclusiones y líneas futuras}
+\label{chapter:Resultados}
+
+\input{conclusiones.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+\thispagestyle{empty}
+
+\chapter{\LARGE Summary and Conclusions}
+\label{chapter:Conclusiones}
+
+\input{conclusions.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+\thispagestyle{empty}
+
+\chapter{\LARGE Presupuesto}
+\label{chapter:presupuesto}
+
+\input{presupuesto.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}\cleardoublepage}
+\thispagestyle{empty}
+
+\begin{appendix}
+
+\chapter{\LARGE Repositorios del ecosistema}
+\label{appendix:1}
+\input{apendice1.tex}
+
+\end{appendix}
+%\printnoidxglossaries
+\printglossary[title=Glosario, toctitle=Glosario]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{thebibliography}{X}
+% Aquí figurará la bibliografía
+%\end{thebibliography}
+%\bibliographystyle{plain}
+\bibliographystyle{unsrt}
+
+\bibliography{memtfg} 
+%\bibliography{bib.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
+
