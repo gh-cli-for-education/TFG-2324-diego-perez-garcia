@@ -85,35 +85,6 @@ Para solucionar estos problemas se ha optado por hacer compilación anticipada o
 
 En cuanto a dependencia de desarrollo, se ha usado como gestor de paquetes \verb|npm|\cite{npm} por mera preferencia personal.
 
-\subsection{La librería {\tt commander}}
-La librería \verb|commander| es muy popular para la creación de aplicaciones \gls{CLI}, se encarga de parsear los argumentos y flags de la línea de comandos, de los mensajes de error relacionados con la creación de dichos argumentos e implementa un sistema de ayuda basándose en las especificaciones establecidas.
-
-Es una parte esencial del ecosistema, a efectos prácticos genera la interfaz mínima necesaria, entre el usuario y el programa y la solución nativa \verb|process.argv| es muy pobre y primitiva en comparación.
-
-Los motivos por los cuales se ha optado específicamente por \verb|commander| son:
-\begin{itemize}
-    \item \textbf{Popularidad.} Lo cual se traduce en un software a prueba de errores y con abundante documentación.
-    \item \textbf{Cero dependencias.} Es bastante remarcable que un paquete del ecosistema de \verb|JS| sea autosuficiente, y nos ayuda en minimizar el tamaño y mantenimiento de nuestro software, en especial en la parte del \verb|core| que interesa que sea lo más convenientemente ligero.
-\end{itemize}
-
-\subsection{La librería {\tt shelljs}} \label{shelljs}
-La librería {\tt shelljs} es el paquete que me permite llamar a comandos de la terminal desde el código fuente, independientemente del sistema operativo.
-
-Incluye comandos propios de los sistemas Unix como \verb|cp|, \verb|rm| o \verb|which| entre otros, y un comando \verb|exec| para ejecutar cualquier otro comando no contemplado por su API.
-
-Es bastante trivial de usar, pero su interfaz es algo pobre ante todas las posibilidades que ofrece la terminal. Alimentar la \verb|STDIN| con variables del programa, cuando el comando ya ha empezado su ejecución, o mandar una señal de cierre, no es posible al momento de escribir estas líneas. Ha habido intentos de ofrecer una \href{https://github.com/shelljs/shelljs/pull/432}{solución apropiada}, pero no ha habido avances, por lo que se ha tenido que recurrir a soluciones alternativas. Se puede ver una explicación más detallada y el porqué este comportamiento es necesario en el capítulo \textbf{Implementación}, en la sección de \verb|gh-edu-data| (\ref{impl:gh-edu-data}).
-
-\subsection{La librería inquirer}
-La librería \verb|inquirer| me permite conseguir datos del usuario de forma interactiva (figura \ref{fig:data-desiredData}). Es una colección de interfaces comunes como:
-\begin{itemize}
-    \item Confirmación
-    \item Múltiple selección (checkbox)
-    \item Listas a la \verb|fzf|
-\end{itemize}
-
-El método principal para conseguir input del usuario de forma interactiva es \verb|fzf|. La librería \verb|inquirer| carece de  características como la búsqueda difusa o \verb|stdin| dinámico. La utilidad \verb|fzf| es una herramienta diseñada para trabajar con listas.  En aquellas ocasiones que se requiere una simple confirmación o que el usuario tenga que escribir manualmente, se recurre a \verb|inquirer|. 
-
-A pesar de no ser tan potente como \verb|fzf|, \verb|inquirer| es una librería nativa de \verb|JS|, por lo que ha sido más fácil trabajar con ella, especialmente en lo referente al manejo de errores.
 
 \section{El Lenguaje Go} \label{go}
 En una de las extensiones se utiliza el lenguaje de programación Go \cite{go}, el motivo de su uso se explica mejor en su respectivo apartado (\ref{diseño:gh-edu-plagiarism}).
