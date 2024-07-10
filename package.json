@@ -8,7 +8,7 @@
     "pdf": "pdflatex memtfg.tex",
     "bibtex": "bibtex memtfg",
     "glossary": "makeglossaries memtfg",
-    "save": "git ci -am \"Cristo TFG mem\"; git push -u origin main"
+    "save": "git ci -am \"Diego TFG mem\"; git push -u origin main"
   },
   "repository": {
     "type": "git",
