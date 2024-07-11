@@ -1,56 +1,53 @@
+En este capítulo se abordará como preparar el entorno para instalar y ejecutar el comando `gh owner` en la GitHub CLI. Además de explicar el desarrollo del comando y las dificultades encontradas.
 
-\section{Instalar GO}
+\section{Entorno}
+\subsection{Instalar GO}
 El primer paso para utilizar el comando es asegurarse de que Go (Golang) está instalado en el sistema. Para ello, siga estos pasos:
 
-1. Descargue la última versión de Go desde la página oficial: https://golang.org/dl/. \\
-2. Siga las instrucciones de instalación correspondientes a su sistema operativo (Windows, macOS, Linux). \\
-3. Verifique la instalación abriendo una terminal y ejecutando el siguiente comando:
-
-\begin{verbatim}
-  go version
-\end{verbatim}
+\begin{enumerate}
+  \item Descargue la última versión de Go desde la página oficial: https://golang.org/dl/.
+  \item Siga las instrucciones de instalación correspondientes a su sistema operativo (Windows, macOS, Linux).
+  \item Verifique la instalación abriendo una terminal y ejecutando el siguiente comando:
+        \begin{verbatim}
+          go version
+        \end{verbatim}
+\end{enumerate}
 
 Si Go está instalado correctamente, verá una salida con la versión de Go instalada.
 
-\section{Descargar el repositorio}
+\subsection{Descargar el repositorio}
 
 Dado que este proyecto no es una modificación directa de la GitHub CLI oficial, es necesario clonar el repositorio desde un fork y acceder a la rama de desarrollo. Para ello, siga los siguientes pasos:
 
-1. Abra una terminal y clone el repositorio desde el fork con el siguiente comando:
-
-\begin{verbatim}
-  git clone git@github.com:gh-cli-for-education/cli.git
-\end{verbatim}
-
-2. Acceda al directorio del repositorio clonado:
-
-\begin{verbatim}
-  cd cli
-\end{verbatim}
-
-3. Cambie a la rama de desarrollo específica:
-
-\begin{verbatim}
-git checkout gh-owner-dev
-\end{verbatim}
+\begin{enumerate}
+  \item Abra una terminal y clone el repositorio desde el fork con el siguiente comando:
+        \begin{verbatim}
+          git clone git@github.com:gh-cli-for-education/cli.git
+        \end{verbatim}
+  \item Acceda al directorio del repositorio clonado.
+        \begin{verbatim}
+          cd cli
+        \end{verbatim}
+  \item Cambie a la rama de desarrollo específica:
+        \begin{verbatim}
+          git checkout gh-owner-dev
+        \end{verbatim}
+\end{enumerate}
 
 \subsection{Compilar el proyecto}
 
 Una vez dentro del repositorio clonado, puede compilar el proyecto utilizando el comando `make`. Siga estos pasos:
 
-1. Asegúrese de estar en el directorio raíz del repositorio clonado.
-2. Ejecute el comando `make` para iniciar el proceso de compilación:
+\begin{enumerate}
+  \item Asegúrese de estar en el directorio raíz del repositorio clonado.
+  \item Ejecute el comando `make` para iniciar el proceso de compilación. Este comando se encargará de construir el proyecto y generar los binarios necesarios.
+  \item Después de la compilación exitosa, puede utilizar el binario generado para ejecutar el comando. En lugar de utilizar el comando `gh` estándar, utilice el binario ubicado en el directorio `bin` del proyecto:
+        \begin{verbatim}
+          ./bin/gh <subcomando>
+        \end{verbatim}
+\end{enumerate}
 
-\begin{verbatim}
-make
-\end{verbatim}
+Con estos pasos, el entorno estará configurado correctamente y podrá empezar a utilizar el comando desarrollado.
 
-Este comando se encargará de construir el proyecto y generar los binarios necesarios.
+\section{Desarrollo del comando}
 
-3. Después de la compilación exitosa, puede utilizar el binario generado para ejecutar el comando. En lugar de utilizar el comando `gh` estándar, utilice el binario ubicado en el directorio `bin` del proyecto:
-
-\begin{verbatim}
-./bin/gh <subcomando>
-\end{verbatim}
-
-Con estos pasos, el entorno estará configurado correctamente y podrá empezar a utilizar el comando desarrollado. En los siguientes capítulos se proporcionarán más detalles sobre la implementación y funcionalidades adicionales.
