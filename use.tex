@@ -1,8 +1,166 @@
-En el siguiente capítulo se tratará como instalar y ejecutar el comando incluido `gh owner` en la GitHub CLI.Cabe destacar que `gh owner` no ha sido añadido a la GitHub CLI oficial, por lo que este capítulo es una simple demostración. Más adelante se explicará la implementación del comando y cómo ejecutarlo.
+En este capítulo, se describirá cómo instalar y ejecutar el comando \texttt{gh owner} en la CLI de GitHub. Cabe destacar que el comando \texttt{gh owner} no ha sido añadido a la CLI oficial de GitHub, por lo que este capítulo sirve como una demostración. Posteriormente, se explicará la implementación del comando y su ejecución.
 
-\section{Instalar gh}
+\section{Instalar \texttt{gh}}
 
-\section{Ejecutar gh owner}
+Para utilizar el comando \texttt{gh owner}, primero es necesario instalar la GitHub CLI (\texttt{gh}). A continuación, se detallan los pasos para su instalación en diferentes sistemas operativos.
+
+\subsection{Instalación en macOS}
+
+\begin{enumerate}
+    \item \textbf{Usando Homebrew}:
+    \begin{verbatim}
+    brew install gh
+    \end{verbatim}
+    \item \textbf{Usando MacPorts}:
+    \begin{verbatim}
+    sudo port install gh
+    \end{verbatim}
+\end{enumerate}
+
+\subsection{Instalación en Windows}
+
+\begin{enumerate}
+    \item \textbf{Usando el instalador}:
+    \begin{itemize}
+        \item Descargue el \href{https://github.com/cli/cli/releases}{instalador} desde la página de lanzamientos de GitHub CLI.
+        \item Ejecute el archivo \texttt{.msi} y siga las instrucciones.
+    \end{itemize}
+    \item \textbf{Usando Scoop}:
+    \begin{verbatim}
+    scoop install gh
+    \end{verbatim}
+    \item \textbf{Usando Chocolatey}:
+    \begin{verbatim}
+    choco install gh
+    \end{verbatim}
+\end{enumerate}
+
+\subsection{Instalación en Linux}
+
+\begin{enumerate}
+    \item \textbf{Usando un paquete Debian/Ubuntu}:
+    \begin{verbatim}
+    sudo apt install gh
+    \end{verbatim}
+    \item \textbf{Usando un paquete Fedora}:
+    \begin{verbatim}
+    sudo dnf install gh
+    \end{verbatim}
+    \item \textbf{Usando un paquete Arch Linux}:
+    \begin{verbatim}
+    sudo pacman -S github-cli
+    \end{verbatim}
+    \item \textbf{Descargando y compilando desde el código fuente}:
+    \begin{itemize}
+        \item Clonar el repositorio:
+        \begin{verbatim}
+        git clone https://github.com/cli/cli.git
+        cd cli
+        \end{verbatim}
+        \item Compilar y instalar:
+        \begin{verbatim}
+        make
+        sudo make install
+        \end{verbatim}
+    \end{itemize}
+\end{enumerate}
+
+\section{Ejecutar \texttt{gh owner}}
+
+Una vez instalada la GitHub CLI, se puede ejecutar el comando \texttt{gh owner}. A continuación, se describe cómo utilizarlo y las distintas opciones disponibles.
+
+\subsection{Uso básico}
+
+El comando \texttt{gh owner} permite gestionar el propietario predeterminado para los comandos de la CLI de GitHub.
+
+\begin{verbatim}
+gh owner [OWNER] | [flags]
+\end{verbatim}
+
+\subsection{Flags}
+
+\begin{itemize}
+    \item \texttt{-l}, \texttt{--list}: Lista las organizaciones.
+    \item \texttt{-s}, \texttt{--select}: Selecciona interactivamente un propietario predeterminado.
+    \item \texttt{-u}, \texttt{--unset}: Desestablece el propietario predeterminado.
+\end{itemize}
+
+\subsection{Flags heredados}
+
+\begin{itemize}
+    \item \texttt{--help}: Muestra la ayuda para el comando.
+\end{itemize}
+
+\subsection{Argumentos}
+
+Se puede especificar un propietario como argumento o usar los flags \texttt{--list}, \texttt{--select}, o \texttt{--unset}. Cualquiera de estas opciones puede ser utilizada, pero solo una a la vez.
 
 \section{Ejemplos de uso}
 
+A continuación, se presentan algunos ejemplos prácticos de cómo utilizar el comando \texttt{gh owner}.
+
+\subsection{Sin argumentos}
+
+Este comando muestra el propietario predeterminado actual.
+
+\begin{verbatim}
+$ gh owner
+\end{verbatim}
+
+\subsection{Especificar un propietario}
+
+Este comando establece un propietario específico como predeterminado.
+
+\begin{verbatim}
+$ gh owner [ORGANIZATION | USER]
+\end{verbatim}
+
+\subsection{Listar organizaciones}
+
+Este comando lista todas las organizaciones disponibles.
+
+\begin{verbatim}
+$ gh owner --list
+\end{verbatim}
+
+\subsection{Selección interactiva de propietario}
+
+Este comando permite seleccionar interactivamente un propietario predeterminado.
+
+\begin{verbatim}
+$ gh owner --select
+\end{verbatim}
+
+\subsection{Desestablecer el propietario predeterminado}
+
+Este comando desestablece el propietario predeterminado actual.
+
+\begin{verbatim}
+$ gh owner --unset
+\end{verbatim}
+
+\section{Aplicaciones sobre otros comandos}
+
+El comando \texttt{gh owner} se puede utilizar para establecer un propietario predeterminado, lo cual simplifica el uso de otros comandos que reciben \texttt{OWNER/REPO} como argumento. A continuación, se muestra un ejemplo práctico de cómo aplicar este concepto.
+
+\subsection{Seleccionar un propietario predeterminado}
+
+Primero, seleccionamos \texttt{gh-cli-for-education} como el propietario predeterminado:
+
+\begin{verbatim}
+// Seleccionamos gh-cli-for-education como OWNER
+gh owner gh-cli-for-education
+\end{verbatim}
+
+\subsection{Usar comandos con \texttt{OWNER/REPO}}
+
+Una vez que hemos establecido el propietario predeterminado, podemos usar cualquier comando de la GitHub CLI que reciba \texttt{OWNER/REPO} como argumento sin necesidad de especificar el propietario cada vez. Por ejemplo, para navegar al repositorio \texttt{cli} del propietario predeterminado, usamos:
+
+\begin{verbatim}
+// Usamos cualquier comando que reciba OWNER/REPO como argumento
+gh browse --repo cli
+\end{verbatim}
+
+En este caso, el comando \texttt{gh browse} abrirá el repositorio \texttt{gh-cli-for-education/cli} en el navegador predeterminado.
+
+Estos pasos muestran cómo el comando \texttt{gh owner} facilita la interacción con otros comandos de la GitHub CLI al gestionar el propietario predeterminado de manera eficiente.

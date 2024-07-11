@@ -1,1 +1,35 @@
-El diseño del comando gh owner se ha adaptado cuidadosamente al estilo de diseño de la GitHub CLI, manteniendo la coherencia con la estructura y usabilidad de la herramienta. Mientras que algunos comandos de gh incluyen subcomandos para organizar múltiples funcionalidades, en este caso se optó por implementar un único comando sin subcomandos. Esta decisión se tomó porque todas las funcionalidades requeridas se pueden resolver eficientemente mediante el uso de flags, simplificando así la sintaxis y mejorando la experiencia del usuario al reducir la complejidad operativa.
+El diseño del comando gh owner figura \ref{fig:ghOwner} se ha adaptado cuidadosamente al estilo de diseño de la GitHub CLI, manteniendo la coherencia con la estructura y usabilidad de la herramienta. Mientras que algunos comandos de gh incluyen subcomandos para organizar múltiples funcionalidades, en este caso se optó por implementar un único comando sin subcomandos. Esta decisión se tomó porque todas las funcionalidades requeridas se pueden resolver eficientemente mediante el uso de flags, simplificando así la sintaxis y mejorando la experiencia del usuario al reducir la complejidad operativa.
+
+\begin{figure}[H]
+  \begin{lstlisting}[language=Bash]
+    The owner command allows you to manage the default owner for GitHub CLI commands.
+
+      USAGE
+        gh owner [OWNER] | [flags]
+
+      FLAGS
+        -l, --list     List organizations
+        -s, --select   Interactively select a default owner
+        -u, --unset    Unset the default owner
+
+      INHERITED FLAGS
+        --help   Show help for command
+
+      ARGUMENTS
+        You can specify an owner as an argument or use the --list, --select, or --unset flags.
+        Any of these options can be used, but only one at a time.
+
+      EXAMPLES
+        $ gh owner
+        $ gh owner [ORGANIZATION | USER]
+        $ gh owner --list
+        $ gh owner --select
+        $ gh owner --unset
+
+      LEARN MORE
+        Use `gh <command> <subcommand> --help` for more information about a command.
+        Read the manual at https://cli.github.com/manual
+  \end{lstlisting}
+  \caption{Comando gh owner}
+  \label{fig:ghOwner}
+\end{figure}

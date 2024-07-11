@@ -51,3 +51,79 @@ Con estos pasos, el entorno estará configurado correctamente y podrá empezar a
 
 \section{Desarrollo del comando}
 
+El comando `gh owner` fue desarrollado siguiendo las pautas y estructura de la GitHub CLI oficial. Para ello, se creó un nuevo subcomando dentro del proyecto existente y se implementó la lógica necesaria para obtener la información del propietario de un repositorio. Todo esto se hizo en dos grandes pasos, primero el comando y su lógica para guardar el OWNER por defecto, y en segundo lugar modificar los comandos ya existentes de `gh` para que utilicen el OWNER guardado.
+
+\subsection{Creación del subcomando `gh owner`}
+Para crear un nuevo subcomando en la GitHub CLI, se deben seguir los siguientes pasos:
+
+\begin{enumerate}
+  \item Crear un nuevo archivo en el directorio `pkg/cmd/owner` con el nombre `owner.go`. Este archivo contendrá la lógica del subcomando `gh owner`.
+  \item Definir la estructura del subcomando, incluyendo la información necesaria para su uso y descripción.
+  \item Implementar la lógica del subcomando, que en este caso consiste en obtener el propietario de un repositorio y guardarlo en una variable global.
+  \item Registrar el subcomando en el archivo `pkg/cmd/root.go` para que sea reconocido por la GitHub CLI.
+  \item Probar el subcomando ejecutando `gh owner` en la terminal y verificando que la información del propietario se muestre correctamente.
+\end{enumerate}
+
+Ya teniendo el comando creado lo más importante de la lógica es la query para obtener los OWNERS desde GitHub en la figura \ref{fig:queryOwners}. Cabe destacar que gracias a la estructura de la GitHub CLI se crea un `cachedClient` que permite guardar el resultado de la query por el tiempo que sea especificado, en este caso una semana. Por otra parte importante iterar la query las veces necesarias para obtener todos los OWNERS ya que el límite está en 100 por query.
+
+\begin{figure}[H]
+  \begin{lstlisting}[language=GO]
+    query := `query OrganizationList($user: String!, $limit: Int!, $endCursor: String) {
+      user(login: $user) {
+        login
+        organizations(first: $limit, after: $endCursor) {
+          totalCount
+          nodes {
+            login
+          }
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+        }
+      }
+    }`
+  \end{lstlisting}
+  \caption{Query para obtener los OWNERS de un usuario}
+  \label{fig:queryOwners}
+\end{figure}
+
+Respecto a cómo guardar el OWNER figura \ref{fig:saveOwner}, se ha optado por usar la estructura del objeto `Config` que se haya en el `Factory`, siendo así que se acaba guardando en el archivo `~/.config/gh`.
+
+\begin{figure}[H]
+  \begin{lstlisting}[language=GO]
+    func setDefaultOwner(opts OwnerOptions, ownerList *OrganizationList) error {
+      // Get the config object to be able to save the owner
+      cfg, err := opts.Config()
+      if err != nil {
+        return err
+      }
+
+      // Check if owner is in the list of organizations
+      found := false
+      for _, org := range ownerList.Organizations {
+        if org.Login == opts.Owner {
+          found = true
+          break
+        }
+      }
+
+      if !found {
+        fmt.Fprintf(opts.IO.Out, "Owner %s not found\n", opts.Owner)
+      } else {
+        // Se guarda y escribe en el archivo ~/.config/gh
+        cfg.Set("", "gh-owner", opts.Owner)
+        err = cfg.Write()
+        if err != nil {
+          return err
+        }
+        fmt.Fprintf(opts.IO.Out, "Default owner set to %s\n", opts.Owner)
+      }
+
+      return nil
+    }
+  \end{lstlisting}
+  \caption{Función para guardar el OWNER por defecto en la configuración de la gh}
+  \label{fig:saveOwner}
+\end{figure}
+
