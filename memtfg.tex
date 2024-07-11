@@ -2,15 +2,10 @@
 
 \usepackage[dvips]{graphicx}
 \usepackage[dvips]{epsfig}
-
-\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
-
-%\usepackage[latin1]{inputenc}
-%\usepackage[spanish]{babel}
-
 \usepackage{alltt}
+\usepackage[citestyle=apa,bibstyle=apa]{biblatex}
 
 \usepackage[ruled,vlined,commentsnumbered,linesnumbered,inoutnumbered,titlenotnumbered,noend]{algorithm2e}
 \SetKwRepeat{Do}{do}{while}
@@ -29,7 +24,7 @@
 \usepackage{graphicx}
 \usepackage{lscape}
 \usepackage{microtype}
-\usepackage{natbib}
+% \usepackage{natbib}
 \usepackage{pdflscape}
 \usepackage{rotating}
 \usepackage{subcaption}
@@ -44,7 +39,81 @@
 \usepackage{lineno}
 \usepackage{epigraph}
 %\usepackage[sanitize=none]{glossaries}
-\usepackage[toc]{glossaries}
+\usepackage{glossaries}
+
+\usepackage{wrapfig}
+
+%Define the listing package
+\usepackage{listings} %code highlighter
+\usepackage{color} %use color
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+ 
+%Customize a bit the look
+\lstset{ %
+backgroundcolor=\color{white}, % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+basicstyle=\footnotesize, % the size of the fonts that are used for the code
+breakatwhitespace=false, % sets if automatic breaks should only happen at whitespace
+breaklines=true, % sets automatic line breaking
+captionpos=b, % sets the caption-position to bottom
+commentstyle=\color{mygreen}, % comment style
+deletekeywords={...}, % if you want to delete keywords from the given language
+escapeinside={\%*}{*)}, % if you want to add LaTeX within your code
+extendedchars=true, % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+frame=single, % adds a frame around the code
+keepspaces=true, % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+keywordstyle=\color{blue}, % keyword style
+% language=Octave, % the language of the code
+morekeywords={*,...}, % if you want to add more keywords to the set
+numbers=left, % where to put the line-numbers; possible values are (none, left, right)
+numbersep=5pt, % how far the line-numbers are from the code
+numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+rulecolor=\color{black}, % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+showspaces=false, % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+showstringspaces=false, % underline spaces within strings only
+showtabs=false, % show tabs within strings adding particular underscores
+stepnumber=1, % the step between two line-numbers. If it's 1, each line will be numbered
+stringstyle=\color{mymauve}, % string literal style
+tabsize=2, % sets default tabsize to 2 spaces
+title=\lstname % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+%END of listing package%
+ 
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+ 
+%define Javascript language
+\lstdefinelanguage{JavaScript}{
+keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+keywordstyle=\color{blue}\bfseries,
+ndkeywords={class, export, boolean, throw, implements, import, this},
+ndkeywordstyle=\color{darkgray}\bfseries,
+identifierstyle=\color{black},
+sensitive=false,
+comment=[l]{//},
+morecomment=[s]{/*}{*/},
+commentstyle=\color{purple}\ttfamily,
+stringstyle=\color{red}\ttfamily,
+morestring=[b]',
+morestring=[b]"
+}
+ 
+\lstset{
+language=JavaScript,
+extendedchars=true,
+basicstyle=\footnotesize\ttfamily,
+showstringspaces=false,
+showspaces=false,
+numbers=left,
+numberstyle=\footnotesize,
+numbersep=9pt,
+tabsize=2,
+breaklines=true,
+showtabs=false,
+captionpos=b
+}
+
 
 %\\linenumbers
 %\setlength\linenumbersep{5pt}
@@ -122,10 +191,12 @@
     urlcolor = cyan,
 }
 
+\addbibresource{memtfg.bib}
+
 \begin{document}
 
-\renewcommand\listtablename{Índice de Tablas}    
-\renewcommand\listfigurename{Índice de Figuras}    
+\renewcommand\listtablename{Índice de Tablas}
+\renewcommand\listfigurename{Índice de Figuras}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % First Page
@@ -141,15 +212,15 @@
 \vspace*{\stretch{0.5}}
 
 \begin{center}
-\includegraphics[scale=0.8]{images/escuela-ingenieria-tecnologia-original}\\[10mm]
-{\Huge Trabajo de Fin de Grado}
+  \includegraphics[scale=0.8]{images/escuela-ingenieria-tecnologia-original}\\[10mm]
+  {\Huge Trabajo de Fin de Grado}
 \end{center}
 
 \HRule
 \begin{flushright}
-    {\Huge Extending GitHub CLI with Default Owners} \\[2.5mm]
-    {\Large \textit Extendiendo GitHub CLI con Propietarios por Defecto} \\[5mm]
-    {\Large Diego Pérez García} \\[5mm]
+  {\Huge Extending GitHub CLI with Default Owners} \\[2.5mm]
+  {\Large \textit Extendiendo GitHub CLI con Propietarios por Defecto} \\[5mm]
+  {\Large Diego Pérez García} \\[5mm]
 \end{flushright}
 \HRule
 
@@ -179,7 +250,6 @@ Que la presente memoria titulada:
 
 \bigskip
 ''{\it Extending GitHub CLI with Default Owners}''
-
 \bigskip
 \bigskip
 \bigskip
@@ -194,76 +264,92 @@ Y para que así conste, en cumplimiento de la legislación vigente y a los efect
 oportunos firman la presente en La Laguna a \today
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Greetings Page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \thispagestyle{empty}
 
-%{ \flushright
-
 \begin{LARGE}
-Agradecimientos
+  Agradecimientos
 \end{LARGE}
 
 \hspace{3mm}
 
 \begin{large}
-A mis amigos ya graduados que me han brindado apoyo, consejo y ánimos a pesar de haberme tardado un año más que ellos. \\
-A mi mejor amiga por brindarme el mayor de los apoyos cuando tuve que repetir asignaturas. \\
-A su vez a mis compañeros por esta gran experiencia y esos recuerdos que me llevo de mi vida universitaria. \\
-A los profesores Francisco de Sande González, Marcos Colebrook-Santamaria, Iván Castilla Rodríguez y Albano José González Fernández por su gran labor como profesores demostrando cada año que tratan de llegar a los alumnos para transmitir sus conocimientos de la mejor manera. \\
-A mi familia que me ha permitido centrarme en los estudios que me han llevado a ser el programador que soy hoy. \\
-Y por último a mi tutor Casiano Rodríguez León por ofrecer esta oportunidad de proyecto y aprendizaje, a la vez de ser un profesor con paciencia y que me ha permitido sacar el mejor resultado. \\
+  A mis amigos ya graduados que me han brindado apoyo, consejo y ánimos a pesar de haberme tardado un año más que ellos. \\
+  A mi mejor amiga por brindarme el mayor de los apoyos cuando tuve que repetir asignaturas. \\
+  A su vez a mis compañeros por esta gran experiencia y esos recuerdos que me llevo de mi vida universitaria. \\
+  A los profesores Francisco de Sande González, Marcos Colebrook-Santamaria, Iván Castilla Rodríguez y Albano José González Fernández por su gran labor como profesores demostrando cada año que tratan de llegar a los alumnos para transmitir sus conocimientos de la mejor manera. \\
+  A mi familia que me ha permitido centrarme en los estudios que me han llevado a ser el programador que soy hoy. \\
+  Y por último a mi tutor Casiano Rodríguez León por ofrecer esta oportunidad de proyecto y aprendizaje, a la vez de ser un profesor con paciencia y que me ha permitido sacar el mejor resultado. \\
 \end{large}
 
-%}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% License Page
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \thispagestyle{empty}
 
 \bigskip
 \begin{LARGE}
-Licencia
+  Licencia
 \end{LARGE}
 
 \begin{center}
-\includegraphics[scale=1.8]{images/by_88x31}\\[5mm]
+  \includegraphics[scale=1.8]{images/by_88x31}\\[5mm]
 \end{center}
 
 \begin{large}
-© Esta obra está bajo una licencia de Creative Commons Reconocimiento 4.0 Internacional.
+  © Esta obra está bajo una licencia de Creative Commons Reconocimiento 4.0 Internacional.
 \end{large}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage 
+% Spanish Abstract Page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \thispagestyle{empty}
 
-\begin{abstract} % TODO: Revisar ortografía
-Está muy arraigado en la informática el uso de GitHub como plataforma de enseñanza.
-Dando paso a herramientas claves como GitHub Classroom con soporte para asignar tareas de manera fácil
-y sencilla. Por otra parte la plataforma ofrece una herramienta llamada GitHub CLI que permite interactuar 
-con esta por medio de  de la línea de comandos.
+\begin{abstract}
+  En el ámbito de la informática, el uso de GitHub como plataforma de repositorios está profundamente arraigado.
+  Por esta razón, GitHub ha buscado continuamente expandir y mejorar la experiencia del usuario,
+  dando lugar a herramientas como GitHub CLI, que permite la interacción desde la línea de comandos.
 
-% XXXX Modificar mal expresado
-Este trabajo presenta un comando nuevo para la GitHub CLI 
-denominado \verb|gh owner| que tiene como objetivo romper con un problema 
-de experiencia de usuario que es tener que recordar los largos y varios OWNERS 
-que pueda tener un usuario en su cuenta. Esto resuelve entonces una cantidad de comandos 
-que requieren de pasar como argumento OWNER/REPO, por lo que declarar un OWNER por defecto y simplemente pasar REPO resulta en combinar este OWNER con el REPO para generar un argumento completo y más fácil de rellenar.
-\begin{palabrasClave}
-github-cli, github-education, graphql, rest, git, go
-\end{palabrasClave}
+  Este trabajo introduce un nuevo comando para GitHub CLI denominado gh owner,
+  cuyo objetivo es solucionar un problema relacionado con la experiencia del usuario:
+  la necesidad de recordar los numerosos y largos nombres de OWNERS asociados a una cuenta.
+  Este comando resuelve la problemática de los comandos que requieren especificar OWNER/REPO como argumento,
+  permitiendo declarar un OWNER por defecto y simplemente especificar el REPO. De esta manera,
+  se combina el OWNER predeterminado con el REPO para generar un argumento completo,
+  facilitando así su uso y mejorando la eficiencia en la gestión de repositorios.
+  \begin{palabrasClave}
+    github-cli, github-education, graphql, rest, git, go, owner, repo
+  \end{palabrasClave}
 
 \end{abstract}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage 
+% Abstract Page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \vspace*{200px}
 \thispagestyle{empty}
 
-\begin{summary} % TODO: Traducir
-\begin {keywords}
-github-cli, github-education, graphql, rest, git, go
-\end {keywords}
+\begin{summary}
+  In the field of computer science, the use of GitHub as a repository platform is deeply ingrained.
+  Consequently, GitHub has continuously aimed to expand and improve user experience,
+  leading to the development of tools such as GitHub CLI, which allows interaction from the command line.
+
+  This work introduces a new command for GitHub CLI called gh owner, aimed at addressing a user experience issue:
+  the need to remember numerous and lengthy OWNER names associated with an account.
+  This command resolves the issue for commands requiring OWNER/REPO as an argument by allowing a default OWNER
+  to be declared and only specifying the REPO. In this way, the default OWNER is combined with the REPO to generate a complete argument,
+  thus facilitating its use and improving efficiency in repository management.
+  \begin{keywords}
+    github-cli, github-education, graphql, rest, git, go, owner, repo
+  \end{keywords}
 
 \end{summary}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage{\pagestyle{empty}}
 \thispagestyle{empty}
@@ -282,22 +368,22 @@ github-cli, github-education, graphql, rest, git, go
 %Numeracion en romanos
 \renewcommand{\thepage}{\roman{page}}
 \setcounter{page}{1}
-\pagestyle{plain} 
+\pagestyle{plain}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 {\hypersetup{linkcolor=black}
-\tableofcontents
+  \tableofcontents
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage{\pagestyle{empty}}
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \newpage{\pagestyle{empty}}
 
-\listoffigures
+  \listoffigures
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage{\pagestyle{empty}}
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \newpage{\pagestyle{empty}}
 
-\listoftables
+  \listoftables
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -385,22 +471,27 @@ github-cli, github-education, graphql, rest, git, go
 
 \begin{appendix}
 
-\chapter{\LARGE Repositorios del ecosistema}
-\label{appendix:1}
-\input{apendice1.tex}
+  \chapter{\LARGE Repositorios del ecosistema}
+  \label{appendix:1}
+  \input{apendice1.tex}
 
 \end{appendix}
 %\printnoidxglossaries
 \printglossary[title=Glosario, toctitle=Glosario]
 
+\glsaddall
+\printglossaries
+\addcontentsline{toc}{chapter}{{\protect \LARGE Glosario}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{thebibliography}{X}
 % Aquí figurará la bibliografía
 %\end{thebibliography}
 %\bibliographystyle{plain}
-\bibliographystyle{unsrt}
+%\bibliographystyle{unsrt}
 
-\bibliography{memtfg} 
+\printbibliography
+\addcontentsline{toc}{chapter}{{\protect \LARGE Bibliografía}}
+
 %\bibliography{bib.tex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
