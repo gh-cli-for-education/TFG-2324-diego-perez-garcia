@@ -85,35 +85,99 @@ title=\lstname % show the filename of files included with \lstinputlisting; also
  
 %define Javascript language
 \lstdefinelanguage{JavaScript}{
-keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
-keywordstyle=\color{blue}\bfseries,
-ndkeywords={class, export, boolean, throw, implements, import, this},
-ndkeywordstyle=\color{darkgray}\bfseries,
-identifierstyle=\color{black},
-sensitive=false,
-comment=[l]{//},
-morecomment=[s]{/*}{*/},
-commentstyle=\color{purple}\ttfamily,
-stringstyle=\color{red}\ttfamily,
-morestring=[b]',
-morestring=[b]"
-}
- 
-\lstset{
-language=JavaScript,
-extendedchars=true,
-basicstyle=\footnotesize\ttfamily,
-showstringspaces=false,
-showspaces=false,
-numbers=left,
-numberstyle=\footnotesize,
-numbersep=9pt,
-tabsize=2,
-breaklines=true,
-showtabs=false,
-captionpos=b
+    keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+    keywordstyle=\color{blue}\bfseries,
+    ndkeywords={class, export, boolean, throw, implements, import, this},
+    ndkeywordstyle=\color{darkgray}\bfseries,
+    identifierstyle=\color{black},
+    sensitive=false,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{purple}\ttfamily,
+    stringstyle=\color{red}\ttfamily,
+    morestring=[b]',
+    morestring=[b]"
 }
 
+% Define Go language
+\lstdefinelanguage{Go}{
+    keywords={break, default, func, interface, select, case, defer, go, map, struct, chan, else, goto, package, switch, const, fallthrough, if, range, type, continue, for, import, return, var},
+    keywordstyle=\color{blue}\bfseries,
+    ndkeywords={bool, byte, complex64, complex128, error, float32, float64, int, int8, int16, int32, int64, rune, string, uint, uint8, uint16, uint32, uint64, uintptr},
+    ndkeywordstyle=\color{darkgray}\bfseries,
+    identifierstyle=\color{black},
+    sensitive=true,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{purple}\ttfamily,
+    stringstyle=\color{red}\ttfamily,
+    morestring=[b]',
+    morestring=[b]"
+}
+
+% Define Bash language
+\lstdefinelanguage{Bash}{
+    keywords={if, then, else, elif, fi, case, esac, for, select, while, until, do, done, in, function},
+    keywordstyle=\color{blue}\bfseries,
+    ndkeywords={echo, exit, return, export, source, alias, unalias},
+    ndkeywordstyle=\color{darkgray}\bfseries,
+    identifierstyle=\color{black},
+    sensitive=true,
+    comment=[l]{\#},
+    morecomment=[s]{:}{:},
+    commentstyle=\color{purple}\ttfamily,
+    stringstyle=\color{red}\ttfamily,
+    morestring=[b]',
+    morestring=[b]"
+}
+
+% Set JavaScript listings options
+\lstdefinestyle{JavaScript}{
+    language=JavaScript,
+    extendedchars=true,
+    basicstyle=\footnotesize\ttfamily,
+    showstringspaces=false,
+    showspaces=false,
+    numbers=left,
+    numberstyle=\footnotesize,
+    numbersep=9pt,
+    tabsize=2,
+    breaklines=true,
+    showtabs=false,
+    captionpos=b
+}
+
+% Set Go listings options
+\lstdefinestyle{GoStyle}{
+    language=Go,
+    extendedchars=true,
+    basicstyle=\footnotesize\ttfamily,
+    showstringspaces=false,
+    showspaces=false,
+    numbers=left,
+    numberstyle=\footnotesize,
+    numbersep=9pt,
+    tabsize=2,
+    breaklines=true,
+    showtabs=false,
+    captionpos=b
+}
+
+% Set Bash listings options
+\lstdefinestyle{BashStyle}{
+    language=Bash,
+    extendedchars=true,
+    basicstyle=\footnotesize\ttfamily,
+    showstringspaces=false,
+    showspaces=false,
+    numbers=left,
+    numberstyle=\footnotesize,
+    numbersep=9pt,
+    tabsize=2,
+    breaklines=true,
+    showtabs=false,
+    captionpos=b
+}
 
 %\\linenumbers
 %\setlength\linenumbersep{5pt}
@@ -398,7 +462,7 @@ oportunos firman la presente en La Laguna a \today
 \setcounter{page}{1}
 \pagestyle{plain}
 
-\chapter{\LARGE Introducción}
+\chapter[\Large Introducción]{\LARGE Introducción, Antecedentes y Estado del Arte}
 \label{chapter:intro}
 
 \input{introduction.tex}
@@ -461,7 +525,7 @@ oportunos firman la presente en La Laguna a \today
 \thispagestyle{empty}
 
 \chapter{\LARGE Presupuesto}
-\label{chapter:presupuesto}             
+\label{chapter:presupuesto}
 
 \input{budget.tex}
 

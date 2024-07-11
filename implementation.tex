@@ -1,16 +1,18 @@
-En este capítulo se abordará como preparar el entorno para instalar y ejecutar el comando `gh owner` en la GitHub CLI. Además de explicar el desarrollo del comando y las dificultades encontradas.
+En este capítulo se abordará cómo preparar el entorno para instalar y ejecutar el comando \texttt{gh owner} en la GitHub CLI. Además, se explicará el desarrollo del comando y las dificultades encontradas.
 
 \section{Entorno}
+
 \subsection{Instalar GO}
+
 El primer paso para utilizar el comando es asegurarse de que Go (Golang) está instalado en el sistema. Para ello, siga estos pasos:
 
 \begin{enumerate}
-  \item Descargue la última versión de Go desde la página oficial: https://golang.org/dl/.
+  \item Descargue la última versión de Go desde la página oficial: \url{https://golang.org/dl/}.
   \item Siga las instrucciones de instalación correspondientes a su sistema operativo (Windows, macOS, Linux).
   \item Verifique la instalación abriendo una terminal y ejecutando el siguiente comando:
         \begin{verbatim}
-          go version
-        \end{verbatim}
+    go version
+  \end{verbatim}
 \end{enumerate}
 
 Si Go está instalado correctamente, verá una salida con la versión de Go instalada.
@@ -22,108 +24,234 @@ Dado que este proyecto no es una modificación directa de la GitHub CLI oficial,
 \begin{enumerate}
   \item Abra una terminal y clone el repositorio desde el fork con el siguiente comando:
         \begin{verbatim}
-          git clone git@github.com:gh-cli-for-education/cli.git
-        \end{verbatim}
-  \item Acceda al directorio del repositorio clonado.
+    git clone git@github.com:gh-cli-for-education/cli.git
+  \end{verbatim}
+  \item Acceda al directorio del repositorio clonado:
         \begin{verbatim}
-          cd cli
-        \end{verbatim}
+    cd cli
+  \end{verbatim}
   \item Cambie a la rama de desarrollo específica:
         \begin{verbatim}
-          git checkout gh-owner-dev
-        \end{verbatim}
+    git checkout gh-owner-dev
+  \end{verbatim}
 \end{enumerate}
 
 \subsection{Compilar el proyecto}
 
-Una vez dentro del repositorio clonado, puede compilar el proyecto utilizando el comando `make`. Siga estos pasos:
+Una vez dentro del repositorio clonado, puede compilar el proyecto utilizando el comando \texttt{make}. Siga estos pasos:
 
 \begin{enumerate}
   \item Asegúrese de estar en el directorio raíz del repositorio clonado.
-  \item Ejecute el comando `make` para iniciar el proceso de compilación. Este comando se encargará de construir el proyecto y generar los binarios necesarios.
-  \item Después de la compilación exitosa, puede utilizar el binario generado para ejecutar el comando. En lugar de utilizar el comando `gh` estándar, utilice el binario ubicado en el directorio `bin` del proyecto:
+  \item Ejecute el comando \texttt{make} para iniciar el proceso de compilación. Este comando se encargará de construir el proyecto y generar los binarios necesarios.
+  \item Después de la compilación exitosa, puede utilizar el binario generado para ejecutar el comando. En lugar de utilizar el comando \texttt{gh} estándar, utilice el binario ubicado en el directorio \texttt{bin} del proyecto:
         \begin{verbatim}
-          ./bin/gh <subcomando>
-        \end{verbatim}
+    ./bin/gh <subcomando>
+  \end{verbatim}
 \end{enumerate}
 
 Con estos pasos, el entorno estará configurado correctamente y podrá empezar a utilizar el comando desarrollado.
 
 \section{Desarrollo del comando}
 
-El comando `gh owner` fue desarrollado siguiendo las pautas y estructura de la GitHub CLI oficial. Para ello, se creó un nuevo subcomando dentro del proyecto existente y se implementó la lógica necesaria para obtener la información del propietario de un repositorio. Todo esto se hizo en dos grandes pasos, primero el comando y su lógica para guardar el OWNER por defecto, y en segundo lugar modificar los comandos ya existentes de `gh` para que utilicen el OWNER guardado.
+El comando \texttt{gh owner} fue desarrollado siguiendo las pautas y estructura de la GitHub CLI oficial. Para ello, se creó un nuevo subcomando dentro del proyecto existente y se implementó la lógica necesaria para obtener la información del propietario de un repositorio. Todo esto se hizo en dos grandes pasos: primero el comando y su lógica para guardar el propietario por defecto, y en segundo lugar modificar los comandos ya existentes de \texttt{gh} para que utilicen el propietario guardado.
 
-\subsection{Creación del subcomando `gh owner`}
+\subsection{Creación del subcomando \texttt{gh owner}}
+
 Para crear un nuevo subcomando en la GitHub CLI, se deben seguir los siguientes pasos:
 
 \begin{enumerate}
-  \item Crear un nuevo archivo en el directorio `pkg/cmd/owner` con el nombre `owner.go`. Este archivo contendrá la lógica del subcomando `gh owner`.
+  \item Crear un nuevo archivo en el directorio \texttt{pkg/cmd/owner} con el nombre \texttt{owner.go}. Este archivo contendrá la lógica del subcomando \texttt{gh owner}.
   \item Definir la estructura del subcomando, incluyendo la información necesaria para su uso y descripción.
   \item Implementar la lógica del subcomando, que en este caso consiste en obtener el propietario de un repositorio y guardarlo en una variable global.
-  \item Registrar el subcomando en el archivo `pkg/cmd/root.go` para que sea reconocido por la GitHub CLI.
-  \item Probar el subcomando ejecutando `gh owner` en la terminal y verificando que la información del propietario se muestre correctamente.
+  \item Registrar el subcomando en el archivo \texttt{pkg/cmd/root.go} para que sea reconocido por la GitHub CLI.
+  \item Probar el subcomando ejecutando \texttt{gh owner} en la terminal y verificando que la información del propietario se muestre correctamente.
 \end{enumerate}
 
-Ya teniendo el comando creado lo más importante de la lógica es la query para obtener los OWNERS desde GitHub en la figura \ref{fig:queryOwners}. Cabe destacar que gracias a la estructura de la GitHub CLI se crea un `cachedClient` que permite guardar el resultado de la query por el tiempo que sea especificado, en este caso una semana. Por otra parte importante iterar la query las veces necesarias para obtener todos los OWNERS ya que el límite está en 100 por query.
+Ya teniendo el comando creado, lo más importante de la lógica es la consulta para obtener los propietarios desde GitHub, como se muestra en la Figura \ref{fig:queryOwners}. Cabe destacar que, gracias a la estructura de la GitHub CLI, se crea un \texttt{cachedClient} que permite guardar el resultado de la consulta por el tiempo que sea especificado, en este caso una semana. Es importante iterar la consulta las veces necesarias para obtener todos los propietarios, ya que el límite está en 100 por consulta.
 
 \begin{figure}[H]
   \begin{lstlisting}[language=GO]
-    query := `query OrganizationList($user: String!, $limit: Int!, $endCursor: String) {
-      user(login: $user) {
+query := `query OrganizationList($user: String!, $limit: Int!, $endCursor: String) {
+  user(login: $user) {
+    login
+    organizations(first: $limit, after: $endCursor) {
+      totalCount
+      nodes {
         login
-        organizations(first: $limit, after: $endCursor) {
-          totalCount
-          nodes {
-            login
-          }
-          pageInfo {
-            hasNextPage
-            endCursor
-          }
-        }
       }
-    }`
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}`
   \end{lstlisting}
-  \caption{Query para obtener los OWNERS de un usuario}
+  \caption{Query para obtener los propietarios de un usuario}
   \label{fig:queryOwners}
 \end{figure}
 
-Respecto a cómo guardar el OWNER figura \ref{fig:saveOwner}, se ha optado por usar la estructura del objeto `Config` que se haya en el `Factory`, siendo así que se acaba guardando en el archivo `~/.config/gh`.
+Respecto a cómo guardar el propietario, como se muestra en la Figura \ref{fig:saveOwner}, se ha optado por usar la estructura del objeto \texttt{Config} que se encuentra en el \texttt{Factory}, siendo así que se acaba guardando en el archivo \texttt{\textasciitilde/.config/gh}.
 
 \begin{figure}[H]
   \begin{lstlisting}[language=GO]
-    func setDefaultOwner(opts OwnerOptions, ownerList *OrganizationList) error {
-      // Get the config object to be able to save the owner
-      cfg, err := opts.Config()
-      if err != nil {
-        return err
-      }
+func setDefaultOwner(opts OwnerOptions, ownerList *OrganizationList) error {
+  // Get the config object to be able to save the owner
+  cfg, err := opts.Config()
+  if (err != nil) {
+    return err
+  }
 
-      // Check if owner is in the list of organizations
-      found := false
-      for _, org := range ownerList.Organizations {
-        if org.Login == opts.Owner {
-          found = true
-          break
-        }
-      }
-
-      if !found {
-        fmt.Fprintf(opts.IO.Out, "Owner %s not found\n", opts.Owner)
-      } else {
-        // Se guarda y escribe en el archivo ~/.config/gh
-        cfg.Set("", "gh-owner", opts.Owner)
-        err = cfg.Write()
-        if err != nil {
-          return err
-        }
-        fmt.Fprintf(opts.IO.Out, "Default owner set to %s\n", opts.Owner)
-      }
-
-      return nil
+  // Check if owner is in the list of organizations
+  found := false
+  for _, org := range ownerList.Organizations {
+    if (org.Login == opts.Owner) {
+      found = true
+      break
     }
+  }
+
+  if (!found) {
+    fmt.Fprintf(opts.IO.Out, "Owner %s not found\n", opts.Owner)
+  } else {
+    // Se guarda y escribe en el archivo ~/.config/gh
+    cfg.Set("", "gh-owner", opts.Owner)
+    err = cfg.Write()
+    if (err != nil) {
+      return err
+    }
+    fmt.Fprintf(opts.IO.Out, "Default owner set to %s\n", opts.Owner)
+  }
+
+  return nil
+}
   \end{lstlisting}
-  \caption{Función para guardar el OWNER por defecto en la configuración de la gh}
+  \caption{Función para guardar el propietario por defecto en la configuración de la gh}
   \label{fig:saveOwner}
 \end{figure}
 
+\section{Aplicación del OWNER por defecto}
+
+Dentro de este apartado cabe destacar dos puntos importantes: por una parte, cómo pasar el \texttt{OWNER} por defecto a los comandos y, por otra parte, cómo cambiar el código de estos para que usen el \texttt{OWNER} por defecto en caso de que exista uno. Además, es importante mencionar que la GitHub CLI incluye una serie de tests que también han sido modificados para que no fallen.
+
+Dicho esto, comenzamos por añadir al \texttt{Factory} una función \texttt{DefaultOwner()} que será pasada a los comandos para obtener el \texttt{OWNER} por defecto de la configuración, como se muestra en la Figura \ref{fig:defaultOwner}.
+
+\begin{figure}[H]
+  \begin{lstlisting}[language=GO]
+    func DefaultOwnerFunc(f *cmdutil.Factory) func() (string, error) {
+      return func() (string, error) {
+        cfg, err := f.Config()
+        if err != nil {
+          return "", err
+        }
+    
+        optValue := cfg.GetOrDefault("", "gh-owner")
+        if optValue.IsSome() {
+          return optValue.Unwrap().Value, nil
+        }
+    
+        return "", nil
+      }
+    }
+  \end{lstlisting}
+  \caption{Función \texttt{DefaultOwner()} en el \texttt{Factory}}
+  \label{fig:defaultOwner}
+\end{figure}
+
+Una vez que tenemos esta función, pasamos a ver un ejemplo en la Figura \ref{fig:setDefaultOwner} de cómo obtener el valor en el comando \texttt{gh repo set-default}.
+
+\begin{figure}[H]
+  \begin{lstlisting}[language=GO]
+    type SetDefaultOptions struct {
+      IO           *iostreams.IOStreams
+      Remotes      func() (context.Remotes, error)
+      HttpClient   func() (*http.Client, error)
+      Prompter     iprompter
+      GitClient    *git.Client
+      DefaultOwner func() (string, error)
+    
+      Repo      ghrepo.Interface
+      ViewMode  bool
+      UnsetMode bool
+    }
+    
+    func NewCmdSetDefault(f *cmdutil.Factory, runF func(*SetDefaultOptions) error) *cobra.Command {
+      opts := &SetDefaultOptions{
+        IO:           f.IOStreams,
+        HttpClient:   f.HttpClient,
+        Remotes:      f.Remotes,
+        Prompter:     f.Prompter,
+        GitClient:    f.GitClient,
+        DefaultOwner: f.DefaultOwner,
+      }
+      // ...
+      RunE: func(cmd *cobra.Command, args []string) error {
+        if len(args) > 0 {
+          var err error
+          defaultOwner, err := opts.DefaultOwner()
+          if err != nil {
+            return err
+          }
+
+          repository, err := ghowner.RepoToOwnerRepo(defaultOwner, args[0])
+          if err != nil {
+            return err
+          }
+
+          opts.Repo, err = ghrepo.FromFullName(repository)
+          if err != nil {
+            return err
+          }
+        }
+        //...
+      }
+    }
+  \end{lstlisting}
+  \caption{Obtener el \texttt{OWNER} por defecto en \texttt{gh repo set-default}}
+  \label{fig:setDefaultOwner}
+\end{figure}
+
+Además, es importante mencionar el caso de la flag \texttt{-R}, \texttt{--repo}, que se usa en varios comandos. Hemos añadido una función que sobrescribe el repo por defecto incluyendo el \texttt{OWNER} por defecto, ya que la flag pide un argumento de tipo \texttt{OWNER/REPO}. Esta función se muestra en la Figura \ref{fig:overrideRepo}.
+
+\begin{figure}[H]
+  \begin{lstlisting}[language=GO]
+    func EnableRepoOverride(cmd *cobra.Command, f *Factory) {
+      // ...
+
+      cmd.PersistentPreRunE = func(cmd *cobra.Command, args []string) error {
+        if err := executeParentHooks(cmd, args); err != nil {
+          return err
+        }
+        repoOverride, _ := cmd.Flags().GetString("repo")
+        f.BaseRepo = OverrideBaseRepoFunc(f, repoOverride)
+        return nil
+      }
+    }
+
+    func OverrideBaseRepoFunc(f *Factory, override string) func() (ghrepo.Interface, error) {
+      if override == "" {
+        override = os.Getenv("GH_REPO")
+      }
+      if override != "" {
+        return func() (ghrepo.Interface, error) {
+          defaultOwner, err := f.DefaultOwner()
+          if err != nil {
+            return nil, err
+          }
+      
+          repository, err := ghowner.RepoToOwnerRepo(defaultOwner, override)
+          if err != nil {
+            return nil, err
+          }
+      
+          return ghrepo.FromFullName(repository)
+        }
+      }
+      return f.BaseRepo
+    }
+  \end{lstlisting}
+  \caption{Función para sobrescribir el repo por defecto incluyendo el \texttt{OWNER}}
+  \label{fig:overrideRepo}
+\end{figure}
+
+Con estas modificaciones, los comandos de la GitHub CLI pueden utilizar el \texttt{OWNER} por defecto configurado, lo que facilita su uso y gestión.
