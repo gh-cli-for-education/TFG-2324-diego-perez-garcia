@@ -14,3 +14,5 @@ TFG_2122_Cristo_Garcia_Gonzalez*.pdf
 *.ist
 *.synctex.gz
 .vscode
+*.bcf
+*.run.xml
